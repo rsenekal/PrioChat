@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>PrioChat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 14px Trebuchet MS; background-color: #eef; margin-top: 5px}
+      form { background: #eef; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 1; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: #8080ff; border: none; border-radius: 2px; padding: 9px; color: white; font: 15px Trebuchet MS}
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; border-radius: 10px; margin-left: 10px; }
+      #messages li:nth-child(odd) { background: #ccccff; display:inline-block;}
+      #messages { margin-bottom: 40px }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="send_button" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form').submit(function(){
+          socket.emit('chat message', $('#send_button').val());
+          $('#send_button').val('');
+          return false;
+        });
+        socket.on('chat message', function(msg){
+          if(msg === ''){
+            return;
+          }
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      });
+    </script>
+  </body>
+</html>

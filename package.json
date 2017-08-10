@@ -1,0 +1,14 @@
+{
+  "name": "PrioChat",
+  "version": "0.0.1",
+  "description": "PrioChat",
+  "dependencies": {
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.7.3",
+    "socket.io.users": "^2.0.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
